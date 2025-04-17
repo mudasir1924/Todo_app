@@ -73,3 +73,8 @@ HTML/CSS. It allows users to register, log in, manage tasks (add, edit, delete),
   Session-based authentication ensures users can only access their own data.
 
 
+
+## Application Overview and Screenshots
+
+
+
