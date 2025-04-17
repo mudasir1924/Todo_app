@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Update Task{% endblock %}
+
+{% block content %}
+<h2>Edit Task</h2>
+<form method="POST">
+  <input type="text" name="title" value="{{ task.title }}" required />
+  <textarea name="description">{{ task.description }}</textarea>
+  <button class="btn" type="submit">Update</button>
+</form>
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+{% endblock %}
