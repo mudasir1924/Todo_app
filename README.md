@@ -76,5 +76,13 @@ HTML/CSS. It allows users to register, log in, manage tasks (add, edit, delete),
 
 ## Application Overview and Screenshots
 
+Login Page Screenshot
+![Login Page](https://Login.png)
+
+Dashboard Screenshot  
+![Dashboard](https://task.png)
+
+Add Task Page Screenshot
+![Add Task](https://task.png)
 
 
