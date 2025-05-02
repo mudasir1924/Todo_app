@@ -3,7 +3,7 @@ import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+app.secret_key = "session_secret_key"
 
 # ---------- Database Config ----------
 db_config = {
@@ -13,8 +13,18 @@ db_config = {
     "database": "todo_db"
 }
 
+# ----------connecting to mysql db -----------
 def get_db():
-    return pymysql.connect(**db_config, cursorclass=pymysql.cursors.DictCursor)
+#     return pymysql.connect(**db_config, cursorclass=pymysql.cursors.DictCursor)
+
+    return pymysql.connect(
+        host=db_config["host"],
+        user=db_config["user"],      
+        password=db_config["password"], 
+        database=db_config["database"],
+        cursorclass=pymysql.cursors.DictCursor  
+    )
+
 
 # ---------- Create Tables ----------
 def create_tables():
@@ -35,8 +45,12 @@ def create_tables():
             user_id INT,
             title VARCHAR(255),
             description TEXT,
+            lastupdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id)
         )""")
+
+
+
     db.commit()
     db.close()
 
@@ -50,7 +64,13 @@ def home():
 def register():
     create_tables()
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['username'].strip()
+
+        # Validate username
+        if " " in username or not username.isalnum():
+            flash("Username must not contain spaces and should be alphanumeric only.")
+            return redirect(url_for('register'))
+        
         password = generate_password_hash(request.form['password'])
 
         db = get_db()
@@ -159,6 +179,7 @@ def edit_task(id):
     db.close()
     return render_template("update.html", task=task)
 
+
 if __name__ == '__main__':
-    create_tables()
+    create_tables()   # <-- Call the function
     app.run(debug=True)
