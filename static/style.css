@@ -55,6 +55,23 @@ body {
     background-color: #1558b0;
   }
 
+  .btnn {
+    padding: 6px 14px;          
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 6px;         
+    font-size: 14px;            
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .btnn:hover {
+    background-color: #1558b0;
+  }
+  
+
   .logout {
     float: right;
     color: #1a73e8;
